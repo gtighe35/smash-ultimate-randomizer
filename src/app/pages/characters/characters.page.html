@@ -1,0 +1,42 @@
+<app-header />
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <h2>Available Characters ({{ availableCharacters.length }})</h2>
+  <ion-list>
+    <ion-item *ngFor="let char of availableCharacters; trackBy: trackByName">
+      {{ char.name }}
+      <ion-toggle
+        slot="end"
+        [checked]="char.vetoed"
+        (ionChange)="toggleVeto(char)"
+      ></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <h2>Vetoed Characters ({{ vetoedCharacters.length }})</h2>
+  <ion-list>
+    <ion-item *ngFor="let char of vetoedCharacters; trackBy: trackByName">
+      {{ char.name }}
+      <ion-toggle
+        slot="end"
+        [checked]="char.vetoed"
+        (ionChange)="toggleVeto(char)"
+      ></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="floating">Number to Generate</ion-label>
+    <ion-input
+      type="number"
+      [(ngModel)]="generateCount"
+      name="generateCount"
+    ></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" class="ion-margin-top" (click)="generateCharacters()">
+    Generate
+  </ion-button>
+</ion-content>
+
+<app-footer />

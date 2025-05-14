@@ -10,7 +10,6 @@ import { DatabaseService } from './services/database.service';
 export class AppComponent implements OnInit{
   constructor(private databaseService: DatabaseService) {}
   async ngOnInit(): Promise<void> {
-    this.databaseService.seedCharacters();
-    console.log('Finished seeding?');
+    await this.databaseService.seedCharacters();
   }
 }
