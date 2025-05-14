@@ -1,0 +1,7 @@
+{
+  "name": "smash-ultimate-randomizer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
