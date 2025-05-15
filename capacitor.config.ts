@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'smash-ultimate-randomizer',
+  appId: 'com.gagetighe.smash',
+  appName: 'Smash Ultimate Randomizer',
   webDir: 'www'
 };
 
