@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonToggle, IonList, IonItem, IonLabel, IonButton, IonInput } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonToggle, IonList, IonItem, IonLabel, IonButton, IonInput, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Character } from 'src/app/models/character.model';
 import { HeaderComponent } from "../../shared/header/header.component";
@@ -14,7 +14,7 @@ import { PlayerResult } from 'src/app/models/player-result.model';
   templateUrl: './characters.page.html',
   styleUrls: ['./characters.page.scss'],
   standalone: true,
-  imports: [IonButton, IonLabel, IonItem, IonList, IonToggle, IonContent, IonInput, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent, FooterComponent]
+  imports: [IonCol, IonRow, IonGrid, IonButton, IonLabel, IonItem, IonList, IonToggle, IonContent, IonInput, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent, FooterComponent]
 })
 export class CharactersPage {
 characters = this.db.characters;
