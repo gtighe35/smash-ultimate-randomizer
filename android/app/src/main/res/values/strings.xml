@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Smash Ultimate Randomizer</string>
+    <string name="title_activity_main">Smash Ultimate Randomizer</string>
+    <string name="package_name">com.gagetighe.smash</string>
+    <string name="custom_url_scheme">com.gagetighe.smash</string>
+</resources>

@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Database, get, onValue, push, ref, remove, set } from '@angular/fire/database';
 import { Character } from '../models/character.model';
 import { Player } from '../models/player.model';
-
+import { PlayerResult } from '../models/player-result.model'; 
 @Injectable({
   providedIn: 'root'
 })
@@ -43,7 +43,7 @@ export class DatabaseService {
       'Inkling', 'Ridley', 'Simon', 'Richter', 'King K. Rool',
       'Isabelle', 'Incineroar', 'Piranha Plant',
       'Joker', 'Hero', 'Banjo & Kazooie', 'Terry', 'Byleth',
-      'Min Min', 'Steve', 'Sephiroth', 'Pyra', 'Mythra',
+      'Min Min', 'Steve', 'Sephiroth', 'Pyra/Mythra',
       'Kazuya', 'Sora'
     ];
 
@@ -114,6 +114,20 @@ export class DatabaseService {
       .replace(/\./g, '')
       .replace(/\//g, '-')
       .replace(/\s+/g, '_');
+  }
+
+  generatePlayerResults(count: number): PlayerResult[] {
+    const unvetoed = this.characters().filter(c => !c.vetoed);
+    const players = this.players();
+
+    return players.map(player => {
+      const shuffled = [...unvetoed].sort(() => Math.random() - 0.5);
+      const assigned = shuffled.slice(0, count);
+      return {
+        player,
+        characters: assigned
+      };
+    });
   }
 
   vetoCharacter(characterName: string): void {

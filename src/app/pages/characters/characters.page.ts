@@ -35,21 +35,10 @@ characters = this.db.characters;
   }
 
   generateCharacters(): void {
-    const unvetoed = this.availableCharacters;
-    const players = this.db.players();
-    const count = this.generateCount;
-
-    const payload: PlayerResult[] = players.map(player => {
-      const shuffled = [...unvetoed].sort(() => Math.random() - 0.5);
-      const assigned = shuffled.slice(0, count);
-      return {
-        player,
-        characters: assigned
-      };
-    });
+    const results = this.db.generatePlayerResults(this.generateCount)
 
     this.router.navigate(['/results'], {
-      state: { results: payload }
+      state: { results }
     });
   }
 
@@ -64,5 +53,4 @@ characters = this.db.characters;
   trackByName(index: number, item: Character): string {
     return item.name;
   }
-
 }
