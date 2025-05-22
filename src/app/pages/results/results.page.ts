@@ -6,6 +6,7 @@ import { PlayerResult } from 'src/app/models/player-result.model';
 import { Router } from '@angular/router';
 import { HeaderComponent } from "../../shared/header/header.component";
 import { FooterComponent } from "../../shared/footer/footer.component";
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-results',
@@ -15,12 +16,9 @@ import { FooterComponent } from "../../shared/footer/footer.component";
   imports: [IonGrid, IonRow, IonCol, IonChip, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonLabel, IonItem, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent, FooterComponent]
 })
 export class ResultsPage {
-  results: PlayerResult[] = [];
+  results = this.db.results;
 
-  constructor(private router: Router) {
-    const nav = this.router.getCurrentNavigation();
-    const state = nav?.extras?.state as { results: PlayerResult[] };
-    this.results = state?.results ?? [];
+  constructor(private db: DatabaseService) {
   }
 
 }

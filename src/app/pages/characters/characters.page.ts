@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonToggle, IonList, IonItem, IonLabel, IonButton, IonInput, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
+import { IonContent, IonCheckbox, IonHeader, IonTitle, IonToolbar, IonToggle, IonList, IonItem, IonLabel, IonButton, IonInput, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Character } from 'src/app/models/character.model';
 import { HeaderComponent } from "../../shared/header/header.component";
@@ -14,12 +14,13 @@ import { PlayerResult } from 'src/app/models/player-result.model';
   templateUrl: './characters.page.html',
   styleUrls: ['./characters.page.scss'],
   standalone: true,
-  imports: [IonCol, IonRow, IonGrid, IonButton, IonLabel, IonItem, IonList, IonToggle, IonContent, IonInput, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent, FooterComponent]
+  imports: [IonCol, IonRow, IonGrid, IonCheckbox, IonButton, IonLabel, IonItem, IonList, IonToggle, IonContent, IonInput, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent, FooterComponent]
 })
 export class CharactersPage {
 characters = this.db.characters;
 
-  generateCount: number = 1;
+  generateCount = this.db.generateCount;
+  noDuplicates = this.db.noDuplicates;
 
   constructor(
     private db: DatabaseService,
@@ -35,11 +36,9 @@ characters = this.db.characters;
   }
 
   generateCharacters(): void {
-    const results = this.db.generatePlayerResults(this.generateCount)
-
-    this.router.navigate(['/results'], {
-      state: { results }
-    });
+    this.db.generatePlayerResults(this.generateCount(), this.noDuplicates())
+ 
+    this.router.navigate(['/results']);
   }
 
   toggleVeto(character: Character) {

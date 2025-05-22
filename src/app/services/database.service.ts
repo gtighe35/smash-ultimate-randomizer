@@ -12,6 +12,10 @@ export class DatabaseService {
 
   players = signal<Player[]>([]);
   characters = signal<Character[]>([]);
+  results = signal<PlayerResult[]>([]);
+
+  generateCount = signal<number>(1);
+  noDuplicates = signal<boolean>(false);
 
   constructor(private database: Database) { }
 
@@ -116,19 +120,33 @@ export class DatabaseService {
       .replace(/\s+/g, '_');
   }
 
-  generatePlayerResults(count: number): PlayerResult[] {
-    const unvetoed = this.characters().filter(c => !c.vetoed);
+  generatePlayerResults(count: number, noDuplicates: boolean = false): void {
+    let unvetoed = this.characters().filter(c => !c.vetoed);
     const players = this.players();
-
-    return players.map(player => {
+  
+    console.log(count);
+    this.results.set(players.map(player => {
       const shuffled = [...unvetoed].sort(() => Math.random() - 0.5);
       const assigned = shuffled.slice(0, count);
+  
+      console.log("no duplicates:", noDuplicates);
+      if (noDuplicates) {
+        console.log(player.name);
+        const assignedNames = new Set(assigned.map(c => c.name));
+        console.log(assignedNames);
+  
+        unvetoed = unvetoed.filter(x => !assignedNames.has(x.name));
+  
+        console.log(unvetoed);
+      }
+      console.log(assigned);
       return {
         player,
         characters: assigned
       };
-    });
+    }));
   }
+  
 
   vetoCharacter(characterName: string): void {
     const safeKey = this.safeCharacterKey(characterName);

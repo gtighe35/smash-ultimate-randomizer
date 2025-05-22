@@ -4,7 +4,7 @@
 
     <ion-grid class="ion-margin-top">
     <ion-row class="ion-align-items-center">
-      <ion-col size="6">
+      <ion-col size="4">
         <ion-item>
           <ion-label position="floating">Number to Generate</ion-label>
           <ion-input
@@ -14,8 +14,17 @@
           ></ion-input>
         </ion-item>
       </ion-col>
+      <ion-col size="4">
+        <ion-item lines="none">
+          <ion-checkbox
+            [(ngModel)]="noDuplicates"
+            justify="start"
+            label-placement="stacked"
+          >No Duplicates</ion-checkbox>
+        </ion-item>
+      </ion-col>
 
-      <ion-col size="6">
+      <ion-col size="4">
         <ion-button expand="block" (click)="generateCharacters()">
           Generate
         </ion-button>
