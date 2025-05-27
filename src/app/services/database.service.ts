@@ -126,7 +126,7 @@ export class DatabaseService {
   
     console.log(count);
     this.results.set(players.map(player => {
-      const shuffled = [...unvetoed].sort(() => Math.random() - 0.5);
+      const shuffled = this.shuffle(unvetoed);
       const assigned = shuffled.slice(0, count);
   
       console.log("no duplicates:", noDuplicates);
@@ -161,6 +161,16 @@ export class DatabaseService {
     set(vetoRef, false);
     this.loadCharacters();
   }
+
+  shuffle<T>(array: T[]): T[] {
+    const result = [...array];
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  }
+
 
   // Delete the entire session
   // deleteSession(): void {
