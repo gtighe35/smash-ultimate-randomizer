@@ -3,6 +3,7 @@ import { Database, get, onValue, push, ref, remove, set } from '@angular/fire/da
 import { Character } from '../models/character.model';
 import { Player } from '../models/player.model';
 import { PlayerResult } from '../models/player-result.model'; 
+import { AnalyticsService } from './analytics.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +18,10 @@ export class DatabaseService {
   generateCount = signal<number>(1);
   noDuplicates = signal<boolean>(false);
 
-  constructor(private database: Database) { }
+  constructor(
+    private database: Database,
+    private analyticsService: AnalyticsService
+  ) { }
 
   async seedCharacters() {
     const sessionRef = ref(this.database, `sessions/${this.sessionId}/characters`);
@@ -120,32 +124,49 @@ export class DatabaseService {
       .replace(/\s+/g, '_');
   }
 
-  generatePlayerResults(count: number, noDuplicates: boolean = false): void {
-    let unvetoed = this.characters().filter(c => !c.vetoed);
-    const players = this.players();
-  
-    console.log(count);
-    this.results.set(players.map(player => {
-      const shuffled = this.shuffle(unvetoed);
-      const assigned = shuffled.slice(0, count);
-  
-      console.log("no duplicates:", noDuplicates);
-      if (noDuplicates) {
-        console.log(player.name);
-        const assignedNames = new Set(assigned.map(c => c.name));
-        console.log(assignedNames);
-  
-        unvetoed = unvetoed.filter(x => !assignedNames.has(x.name));
-  
-        console.log(unvetoed);
-      }
-      console.log(assigned);
-      return {
-        player,
-        characters: assigned
-      };
-    }));
+ async generatePlayerResults(count: number, noDuplicates: boolean = false): Promise<void> {
+  let unvetoed = this.characters().filter(c => !c.vetoed);
+  const players = this.players();
+
+  console.log(count);
+
+  const allLogEventPromises: Promise<void>[] = [];
+
+  this.results.set(players.map(player => {
+    const shuffled = this.shuffle(unvetoed);
+    const assigned = shuffled.slice(0, count);
+
+    console.log("no duplicates:", noDuplicates);
+    if (noDuplicates) {
+      console.log(player.name);
+      const assignedNames = new Set(assigned.map(c => c.name));
+      console.log(assignedNames);
+
+      unvetoed = unvetoed.filter(x => !assignedNames.has(x.name));
+
+      console.log(unvetoed);
+    }
+
+    assigned.forEach(character => {
+      const logPromise = this.analyticsService.logEvent('character_assigned', {
+        playerId: player.id,
+        character: character.name,
+        sessionId: this.sessionId,
+        noDuplicates: noDuplicates,
+        playerName: player.name
+      });
+      allLogEventPromises.push(logPromise);
+    });
+
+    return {
+      player,
+      characters: assigned
+    };
+  }));
+
+    await Promise.all(allLogEventPromises);
   }
+
   
 
   vetoCharacter(characterName: string): void {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBo1aWAU_BBzcpy2p6_pYGCnD_A4SdI5Bo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>270291326279</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.gagetighe.smash</string>
+	<key>PROJECT_ID</key>
+	<string>smash-ultimate-randomizer</string>
+	<key>STORAGE_BUCKET</key>
+	<string>smash-ultimate-randomizer.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:270291326279:ios:b29470f6cb6050e6fba862</string>
+	<key>DATABASE_URL</key>
+	<string>https://smash-ultimate-randomizer-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

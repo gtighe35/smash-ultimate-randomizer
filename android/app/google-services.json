@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "270291326279",
+    "firebase_url": "https://smash-ultimate-randomizer-default-rtdb.firebaseio.com",
+    "project_id": "smash-ultimate-randomizer",
+    "storage_bucket": "smash-ultimate-randomizer.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270291326279:android:871016cdc502e746fba862",
+        "android_client_info": {
+          "package_name": "com.gagetighe.smash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3iHlEGi8fjQebB0EHRu_e0XVVJLVsu_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
